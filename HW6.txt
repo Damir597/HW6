@@ -1,0 +1,59 @@
+using System;
+
+// 1. Абстрактный класс StorageDevice
+abstract class StorageDevice
+{
+    public int Capacity { get; set; } // Ёмкость в гигабайтах
+
+    public StorageDevice(int capacity)
+    {
+        Capacity = capacity;
+    }
+
+    public abstract void StoreData();
+}
+
+// 2. Класс HardDrive
+class HardDrive : StorageDevice
+{
+    public int Speed { get; set; } // Скорость чтения/записи в МБ/с
+
+    public HardDrive(int capacity, int speed) : base(capacity)
+    {
+        Speed = speed;
+    }
+
+    public override void StoreData()
+    {
+        Console.WriteLine($"Данные сохраняются на жёсткий диск со скоростью {Speed} МБ/с.");
+    }
+}
+
+// 3. Класс FlashDrive
+class FlashDrive : StorageDevice
+{
+    public string UsbType { get; set; } // Тип USB (например, "USB 2.0", "USB 3.0")
+
+    public FlashDrive(int capacity, string usbType) : base(capacity)
+    {
+        UsbType = usbType;
+    }
+
+    public override void StoreData()
+    {
+        Console.WriteLine($"Данные сохраняются на флеш-накопитель с интерфейсом {UsbType}.");
+    }
+}
+
+// 4. Основной код для создания объектов и вызова метода StoreData
+class Program
+{
+    static void Main()
+    {
+        HardDrive hardDrive = new HardDrive(1000, 150); // Жёсткий диск на 1000 ГБ со скоростью 150 МБ/с
+        FlashDrive flashDrive = new FlashDrive(64, "USB 3.0"); // Флеш-накопитель на 64 ГБ с интерфейсом USB 3.0
+
+        hardDrive.StoreData();
+        flashDrive.StoreData();
+    }
+}
